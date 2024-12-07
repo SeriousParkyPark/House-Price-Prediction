@@ -17,6 +17,9 @@ def load_data():
     columns_to_remove = ['id', 'host_id', 'license', 'neighbourhood_group', 'host_name', 'last_review', 'reviews_per_month']
     df = df.drop(columns=columns_to_remove, errors='ignore')
     df = df[df['price'] <= 9000]
+    df = df.dropna()
+    df = df.replace([float('inf'), float('-inf')], float('nan'))
+    df = df.dropna()
     return df
 
 # Function for preprocessing and training the model
@@ -31,7 +34,8 @@ def train_model(df):
     # Prepare features (X) and target (y)
     X = df[['latitude', 'longitude'] + list(encoder.get_feature_names_out(categorical_features))]
     y = df['price']
-
+    X = X.replace([float('inf'), float('-inf')], float('nan')).dropna()
+    y = y.replace([float('inf'), float('-inf')], float('nan')).dropna()
     # Split into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
