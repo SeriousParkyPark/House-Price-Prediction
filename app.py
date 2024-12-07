@@ -34,8 +34,10 @@ def train_model(df):
     # Prepare features (X) and target (y)
     X = df[['latitude', 'longitude'] + list(encoder.get_feature_names_out(categorical_features))]
     y = df['price']
-    X = X.replace([float('inf'), float('-inf')], float('nan')).dropna()
-    y = y.replace([float('inf'), float('-inf')], float('nan')).dropna()
+    combined_df = pd.concat([X, y], axis=1).dropna()
+    X = combined_df.drop('price', axis=1)
+    y = combined_df['price']
+    assert len(X) == len(y), f"Inconsistent lengths: X={len(X)}, y={len(y)}"
     # Split into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
@@ -48,7 +50,7 @@ def train_model(df):
     mse = mean_squared_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
 
-    return model, encoder, mse, r2, X_train, X_test, y_train, y_test
+    return model, encoder, mse, r2
 
 # Page for exploring the dataset
 def dataset_page(df):
