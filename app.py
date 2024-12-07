@@ -30,10 +30,11 @@ def train_model(df):
     encoded_features = encoder.fit_transform(df[categorical_features])
     encoded_df = pd.DataFrame(encoded_features, columns=encoder.get_feature_names_out(categorical_features))
     df = pd.concat([df, encoded_df], axis=1)
-
+    y = y.apply(lambda p: np.log1p(p))
     # Prepare features (X) and target (y)
     X = df[['latitude', 'longitude'] + list(encoder.get_feature_names_out(categorical_features))]
     y = df['price']
+    
     combined_df = pd.concat([X, y], axis=1).dropna()
     X = combined_df.drop('price', axis=1)
     y = combined_df['price']
@@ -47,6 +48,8 @@ def train_model(df):
 
     # Evaluate the model
     y_pred = model.predict(X_test)
+    y_test_actual = np.expm1(y_test)  # expm1 reverses log1p
+    y_pred_actual = np.expm1(y_pred)
     mse = mean_squared_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
 
@@ -64,9 +67,9 @@ def dataset_page(df):
 def prediction_page(df, model, encoder, mse, r2):
     st.title("Predict Airbnb Rental Price")
 
-    #st.subheader("Model Metrics")
-    #st.write(f"Mean Squared Error (MSE): {mse:.2f}")
-    #st.write(f"R-squared (R²): {r2:.2f}")
+    st.subheader("Model Metrics")
+    st.write(f"Mean Squared Error (MSE): {mse:.2f}")
+    st.write(f"R-squared (R²): {r2:.2f}")
 
     st.subheader("Make a Prediction")
     latitude = st.number_input('Latitude', value=df['latitude'].mean())
