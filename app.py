@@ -1,5 +1,5 @@
 ##THIS HERE IS JUST ME TRYING SOMETHING:
-
+from sklearn.ensemble import RandomForestRegressor
 import numpy as np
 import streamlit as st
 import pandas as pd
@@ -44,7 +44,7 @@ def train_model(df):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
     # Train the Linear Regression model
-    model = LinearRegression()
+    model = RandomForestRegressor(n_estimators=100, random_state=42)
     model.fit(X_train, y_train)
 
     # Evaluate the model
