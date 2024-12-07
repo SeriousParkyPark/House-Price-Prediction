@@ -45,7 +45,7 @@ def train_model(df):
 
     # Train the Linear Regression model
     model = LinearRegression()
-    model.fit(y_test, y_train)
+    model.fit(X_test, y_train)
 
     # Evaluate the model
     y_pred = model.predict(X_test)
