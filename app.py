@@ -64,9 +64,9 @@ def dataset_page(df):
 def prediction_page(df, model, encoder, mse, r2):
     st.title("Predict Airbnb Rental Price")
 
-    st.subheader("Model Metrics")
-    st.write(f"Mean Squared Error (MSE): {mse:.2f}")
-    st.write(f"R-squared (R²): {r2:.2f}")
+    #st.subheader("Model Metrics")
+    #st.write(f"Mean Squared Error (MSE): {mse:.2f}")
+    #st.write(f"R-squared (R²): {r2:.2f}")
 
     st.subheader("Make a Prediction")
     latitude = st.number_input('Latitude', value=df['latitude'].mean())
