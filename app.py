@@ -20,7 +20,7 @@ def load_data():
     return df
 
 # Function for preprocessing and training the model
-@st.cache_resource(allow_output_mutation=True)
+@st.cache_resource
 def train_model(df):
     categorical_features = ['room_type', 'neighbourhood']
     encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
