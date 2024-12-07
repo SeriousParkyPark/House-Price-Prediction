@@ -1,6 +1,5 @@
 ##THIS HERE IS JUST ME TRYING SOMETHING:
 
-!pip install streamlit
 
 import streamlit as st
 import pandas as pd
