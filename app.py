@@ -1,5 +1,7 @@
 ##THIS HERE IS JUST ME TRYING SOMETHING:
 
+!pip install streamlit
+
 import streamlit as st
 import pandas as pd
 from sklearn.linear_model import LinearRegression
@@ -8,7 +10,7 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.metrics import mean_squared_error, r2_score
 
 # Function for loading and cleaning the dataset
-@st.cache
+@st.cache_data
 def load_data():
     url = "https://data.insideairbnb.com/canada/qc/montreal/2024-09-13/visualisations/listings.csv"
     df = pd.read_csv(url)
@@ -19,7 +21,7 @@ def load_data():
     return df
 
 # Function for preprocessing and training the model
-@st.cache(allow_output_mutation=True)
+@st.cache_resource(allow_output_mutation=True)
 def train_model(df):
     categorical_features = ['room_type', 'neighbourhood']
     encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
