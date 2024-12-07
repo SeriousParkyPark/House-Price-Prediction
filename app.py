@@ -45,14 +45,14 @@ def train_model(df):
 
     # Train the Linear Regression model
     model = LinearRegression()
-    model.fit(X_train, y_train)
+    model.fit(y_test, y_train)
 
     # Evaluate the model
     y_pred = model.predict(X_test)
     y_test_actual = np.expm1(y_test)  # expm1 reverses log1p
     y_pred_actual = np.expm1(y_pred)
-    mse = mean_squared_error(y_test, y_pred)
-    r2 = r2_score(y_test, y_pred)
+    mse = mean_squared_error(y_test_actual, y_pred_actual)
+    r2 = r2_score(y_test_actual, y_pred_actual)
 
     return model, encoder, mse, r2
 
