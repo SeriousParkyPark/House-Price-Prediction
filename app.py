@@ -30,7 +30,7 @@ def train_model(df):
     encoded_df = pd.DataFrame(encoded_features, columns=encoder.get_feature_names_out(categorical_features))
     df = pd.concat([df, encoded_df], axis=1)
     y = df['price']
-    y = y.apply(lambda p: np.log1p(p))
+    y = y = np.log1p(y)
     # Prepare features (X) and target (y)
     X = df[['latitude', 'longitude'] + list(encoder.get_feature_names_out(categorical_features))]
     
