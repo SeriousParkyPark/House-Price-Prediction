@@ -43,14 +43,14 @@ def train_model(df):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
     # Train the Linear Regression model
-    model = RandomForestRegressor(n_estimators=100, random_state=42)
+    model = LinearRegression()
     model.fit(X_train, y_train)
 
     # Evaluate the model
     y_pred = model.predict(X_test)
     y_test_actual = np.expm1(y_test)  # expm1 reverses log1p
     y_pred_actual = np.expm1(y_pred)
-    mse = linear_regression()
+    mse = mean_squared_error(y_test_actual, y_pred_actual)
     r2 = r2_score(y_test_actual, y_pred_actual)
 
     return model, encoder, mse, r2
