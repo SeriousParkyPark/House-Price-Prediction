@@ -1,6 +1,5 @@
 ##THIS HERE IS JUST ME TRYING SOMETHING:
 
-%%writefile app.py
 import streamlit as st
 import pandas as pd
 from sklearn.linear_model import LinearRegression
