@@ -101,7 +101,7 @@ def main():
     df = load_data()
 
     # Train the model
-    model, encoder, mse, r2, _, _, _, _ = train_model(df)
+    model, encoder, mse, r2 = train_model(df)
 
     if choice == "Dataset":
         dataset_page(df)
